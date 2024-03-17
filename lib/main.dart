@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: CircularProgressIndicator(),
                       ),
                     )
-                  : AppDrawer(sortedApps:sortedApps, sortApps: sortApps(applications), applications: applications,)
+                  : Flexible(child: SingleChildScrollView(child: AppDrawer(sortedApps:sortedApps, sortApps: sortApps(applications), applications: applications,)))
             ],
           ),
         ),
@@ -112,3 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
+
