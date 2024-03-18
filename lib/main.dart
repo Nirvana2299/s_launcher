@@ -131,7 +131,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 side: MaterialStatePropertyAll(BorderSide(color: Colors.grey.shade500, width: 2.0)),
                 hintStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white54, fontSize: 18.0)),
                 leading: const Icon(Icons.search, color: Colors.white70,),
-                trailing: [GestureDetector(onTap: () => searchBarTextController.clear(), child: const Icon(Icons.cancel, color: Colors.white70,))],
+                trailing: [GestureDetector(onTap: () => setState(() {
+                  searchList = sortedApps;
+                  searchBarTextController.clear();
+                }), child: const Icon(Icons.cancel, color: Colors.white70,))],
               ),
               const SizedBox(
                 height: 10.0,
