@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 trailing: [GestureDetector(onTap: () => setState(() {
                   searchList = sortedApps;
                   searchBarTextController.clear();
-                }), child: const Icon(Icons.cancel, color: Colors.white70,))],
+                }), child: searchBarTextController.text.isNotEmpty ? const Icon(Icons.cancel, color: Colors.white70,) : Container())],
               ),
               const SizedBox(
                 height: 10.0,
