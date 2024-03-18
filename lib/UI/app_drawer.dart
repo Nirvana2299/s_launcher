@@ -1,28 +1,27 @@
+import 'dart:ui';
+
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 
-class AppDrawer extends StatefulWidget {
+class AppDrawer extends StatelessWidget {
   final List sortedApps;
-  final List sortApps;
   final List applications;
-  const AppDrawer({super.key, required this.sortedApps, required this.sortApps, required this.applications});
+  final ScrollController scrollController;
+  AppDrawer({super.key, required this.sortedApps, required this.applications, required this.scrollController});
 
-  @override
-  State<AppDrawer> createState() => _AppDrawerState();
-}
-
-class _AppDrawerState extends State<AppDrawer> {
+    
   @override
   Widget build(BuildContext context) {
     return  GridView.builder(
+      controller: scrollController,
     physics: const NeverScrollableScrollPhysics(),
     shrinkWrap: true,
-    itemCount: widget.applications.length,
+    itemCount: applications.length,
     itemBuilder: (context, index) {
       // final applicationIcon = widget.sortedApps.isNotEmpty ? widget.sortedApps[index].icon as Uint8List : widget.sortApps[index].icon as Uint8List;
-    final application = widget.sortedApps.isNotEmpty
-        ? widget.sortedApps[index] as ApplicationWithIcon
-        : widget.sortApps[index] as ApplicationWithIcon;
+    final application = sortedApps.isNotEmpty
+        ? sortedApps[index] as ApplicationWithIcon
+        : applications[index] as ApplicationWithIcon;
     return SizedBox(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,26 +31,27 @@ class _AppDrawerState extends State<AppDrawer> {
               onTap: () => DeviceApps.openApp(application.packageName),
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.07,
-                child: AspectRatio(
-                  aspectRatio: 6 / 6,
-                  child: Container(
-                      // width: MediaQuery.of(context).size.width * 0.19,
-                      // height: MediaQuery.of(context).size.height * 0.28,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            10.0,
-                          ),
-                          color: Colors.white),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.memory(application.icon))),
+                child: Container(
+                  child: AspectRatio(
+                    aspectRatio: 6 / 6,
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              10.0,
+                            ),
+                            color: Colors.transparent),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.memory(application.icon))),
+                  ),
                 ),
               ),
             ),
             const SizedBox(
               height: 5.0,
             ),
-            SizedBox(
+            Container(
+              color: Colors.transparent,
               height: MediaQuery.of(context).size.width * 0.04,
               child: Text(
                 application.appName,
@@ -65,7 +65,7 @@ class _AppDrawerState extends State<AppDrawer> {
     );
     },
     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-      mainAxisSpacing: 10, maxCrossAxisExtent: 100, crossAxisSpacing: 10),
+      mainAxisSpacing: 20, maxCrossAxisExtent: 90, crossAxisSpacing: 20),
       );
   }
 }
