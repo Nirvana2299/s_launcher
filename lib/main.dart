@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0)),),
                 hintText: 'Search Apps',
-                padding: MaterialStatePropertyAll(EdgeInsets.all(10.0)),
+                padding: const MaterialStatePropertyAll(EdgeInsets.all(10.0)),
                 side: MaterialStatePropertyAll(BorderSide(color: Colors.grey.shade500, width: 2.0)),
                 hintStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white54, fontSize: 18.0)),
                 leading: const Icon(Icons.search, color: Colors.white70,),
