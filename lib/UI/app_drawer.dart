@@ -50,22 +50,24 @@ class AppDrawer extends StatelessWidget {
             const SizedBox(
               height: 5.0,
             ),
-            Container(
-              color: Colors.transparent,
-              height: MediaQuery.of(context).size.width * 0.04,
-              child: Text(
-                application.appName,
-                style: const TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-                maxLines: 3,
-                overflow: TextOverflow.clip,
+            Flexible(
+              child: Container(
+                color: Colors.transparent,
+                // height: MediaQuery.of(context).size.width * 0.04,
+                child: Text(
+                  application.appName,
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                  maxLines: 3,
+                  overflow: TextOverflow.clip,
+                ),
               ),
             )
           ]),
     );
     },
     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-      mainAxisSpacing: 20, maxCrossAxisExtent: 90, crossAxisSpacing: 20),
+      mainAxisSpacing: 20, maxCrossAxisExtent: 100, crossAxisSpacing: 20),
       );
   }
 }
