@@ -121,105 +121,105 @@ class _MyHomePageState extends State<MyHomePage> {
       // extendBodyBehindAppBar: true,
       // extendBody: true,
       
-      backgroundColor: Colors.transparent,//const Color(0xff1C1760),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 12.0),
-          child: Stack(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // const Text(
-              //   'Hi Shoaib! :)',
-              //   style: TextStyle(fontSize: 30, color: Colors.white),
-              //   textAlign: TextAlign.start,
-              // ),
-             
-              // ClipRRect(
-              //   child: BackdropFilter(
-              //     filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-              //     child: Container(
-              //       color: Colors.grey.withOpacity(0.1),
-              //       width: MediaQuery.of(context).size.width,
-              //       height: 10.0,
-              //     ),
-              //   ),
-              // ),
-              loading
-                  ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                  : SingleChildScrollView(
-                    // controller: firstController,
-                    child: AppDrawer(
-                      sortedApps: searchList.isNotEmpty ? searchList : sortedApps,
-                      applications: searchList.isNotEmpty
-                          ? searchList
-                          : applications,
-                      scrollController: firstController,
-                    ),
+      backgroundColor: const Color(0xff1C1760),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+        child: Stack(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // const Text(
+            //   'Hi Shoaib! :)',
+            //   style: TextStyle(fontSize: 30, color: Colors.white),
+            //   textAlign: TextAlign.start,
+            // ),
+           
+            // ClipRRect(
+            //   child: BackdropFilter(
+            //     filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+            //     child: Container(
+            //       color: Colors.grey.withOpacity(0.1),
+            //       width: MediaQuery.of(context).size.width,
+            //       height: 10.0,
+            //     ),
+            //   ),
+            // ),
+            loading
+                ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+                : searchList.isEmpty ? BackdropFilter(filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3), child: const Center(child: Text('app not found :(', style: TextStyle(fontSize: 24.0, color: Colors.white),),))  :
+                SingleChildScrollView(
+                  // controller: firstController,
+                  child: AppDrawer(
+                    sortedApps: searchList,
+                    // applications: searchList.isNotEmpty
+                    //     ? searchList
+                    //     : applications,
+                    scrollController: firstController,
                   ),
-                    const SizedBox(height: 5.0,),
-                     Stack(
-                children: [
-                  // Container(
-                  //   width: 70,
-                  //   height: 70,
-                  //   decoration: const BoxDecoration(
-                  //       shape: BoxShape.circle,
-                  //       gradient: LinearGradient(colors: [
-                  //         Color(0xff744ff9),
-                  //         Color(0xff8369de),
-                  //         Color(0xff8da0cb)
-                  //       ])),
-                  // ),
-                  // ClipRRect(
-                  //   child: BackdropFilter(
-                  //     filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-                  //     child: Container(
-                  //       width: 500,
-                  //       height: 200,
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.grey.withOpacity(0.1),
-                  //       )
-                  //     ),
-                  //   ),
-                  // ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: ClipRRect(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                        child: Container(
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0),color: Colors.grey.withOpacity(0.1),),
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                          child: SearchBar(
-                            controller: searchBarTextController,
-                            elevation: const MaterialStatePropertyAll(0),
-                            textStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white)),
-                            backgroundColor: MaterialStatePropertyAll(Colors.transparent),
-                            onChanged: (value) => searchResult(value),
-                            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0)),),
-                            hintText: 'Search Apps',
-                            padding: const MaterialStatePropertyAll(EdgeInsets.all(10.0)),
-                            side: MaterialStatePropertyAll(BorderSide(color: Colors.grey.shade500, width: 2.0)),
-                            hintStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white, fontSize: 18.0)),
-                            leading: const Icon(Icons.search, color: Colors.white70,),
-                            trailing: [GestureDetector(onTap: () => setState(() {
-                              searchList = sortedApps;
-                              searchBarTextController.clear();
-                            }), child: searchBarTextController.text.isNotEmpty ? const Icon(Icons.cancel, color: Colors.white70,) : Container())],
-                          ),
+                ),
+                  const SizedBox(height: 5.0,),
+                   Stack(
+              children: [
+                // Container(
+                //   width: 70,
+                //   height: 70,
+                //   decoration: const BoxDecoration(
+                //       shape: BoxShape.circle,
+                //       gradient: LinearGradient(colors: [
+                //         Color(0xff744ff9),
+                //         Color(0xff8369de),
+                //         Color(0xff8da0cb)
+                //       ])),
+                // ),
+                // ClipRRect(
+                //   child: BackdropFilter(
+                //     filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+                //     child: Container(
+                //       width: 500,
+                //       height: 200,
+                //       decoration: BoxDecoration(
+                //         color: Colors.grey.withOpacity(0.1),
+                //       )
+                //     ),
+                //   ),
+                // ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 30,
+                  child: ClipRRect(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                      child: Container(
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0),color: Colors.transparent,),
+                        // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        child: SearchBar(
+                          controller: searchBarTextController,
+                          elevation: const MaterialStatePropertyAll(0),
+                          textStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white)),
+                          backgroundColor: MaterialStatePropertyAll(Colors.transparent.withOpacity(0.1)),
+                          onChanged: (value) => searchResult(value),
+                          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0)),),
+                          hintText: 'Search Apps',
+                          padding: const MaterialStatePropertyAll(EdgeInsets.all(10.0)),
+                          side: MaterialStatePropertyAll(BorderSide(color: Colors.grey.shade500, width: 2.0)),
+                          hintStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white, fontSize: 18.0)),
+                          leading: const Icon(Icons.search, color: Colors.white70,),
+                          trailing: [GestureDetector(onTap: () => setState(() {
+                            searchList = sortedApps;
+                            searchBarTextController.clear();
+                          }), child: searchBarTextController.text.isNotEmpty ? const Icon(Icons.cancel, color: Colors.white70,) : Container())],
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            
+          ],
         ),
       ),
     );
