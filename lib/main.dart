@@ -21,17 +21,27 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    const SystemUiOverlayStyle(
-    //NavigationBar
-    systemNavigationBarColor: Colors.transparent,
-    systemNavigationBarContrastEnforced: false,
-    systemNavigationBarIconBrightness: Brightness.dark,
-    //StatusBar
-    // systemStatusBarContrastEnforced: false,
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-  );
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        systemStatusBarContrastEnforced: false,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.dark,
+        ));
+  //   const SystemUiOverlayStyle(
+  //   //NavigationBar
+  //   systemNavigationBarColor: Colors.transparent,
+  //   systemNavigationBarContrastEnforced: false,
+  //   systemNavigationBarIconBrightness: Brightness.dark,
+  //   //StatusBar
+  //   systemStatusBarContrastEnforced: false,
+  //   statusBarColor: Colors.transparent,
+  //   statusBarIconBrightness: Brightness.dark,
+  //   statusBarBrightness: Brightness.light,
+  // );
     return MaterialApp(
       title: 'S Launcher',
       theme: ThemeData(
