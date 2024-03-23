@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         systemStatusBarContrastEnforced: false,
         systemNavigationBarColor: Colors.transparent,
@@ -31,17 +31,7 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.dark,
         ));
-  //   const SystemUiOverlayStyle(
-  //   //NavigationBar
-  //   systemNavigationBarColor: Colors.transparent,
-  //   systemNavigationBarContrastEnforced: false,
-  //   systemNavigationBarIconBrightness: Brightness.dark,
-  //   //StatusBar
-  //   systemStatusBarContrastEnforced: false,
-  //   statusBarColor: Colors.transparent,
-  //   statusBarIconBrightness: Brightness.dark,
-  //   statusBarBrightness: Brightness.light,
-  // );
+
     return MaterialApp(
       title: 'S Launcher',
       theme: ThemeData(
@@ -60,9 +50,25 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController searchBarTextController = TextEditingController();
   final ScrollController firstController = ScrollController();
+
+
+  bool wallpaperMode = false;
+
+  changeBackground() {
+    if(!wallpaperMode) {
+      wallpaperMode = true;
+    } else {
+      wallpaperMode = false;
+    }
+    print(wallpaperMode);
+    setState(() {
+      
+    });
+  }
   List<Application> applications = [];
   bool loading = false;
   void getApplications() async {
@@ -131,28 +137,12 @@ class _MyHomePageState extends State<MyHomePage> {
       // extendBodyBehindAppBar: true,
       // extendBody: true,
       
-      backgroundColor: const Color(0xff1C1760),
+      backgroundColor: wallpaperMode ?  Colors.transparent : const Color(0xff1C1760),
       body: Padding(
         padding: const EdgeInsets.only(left: 5.0, right: 5.0),
         child: Stack(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // const Text(
-            //   'Hi Shoaib! :)',
-            //   style: TextStyle(fontSize: 30, color: Colors.white),
-            //   textAlign: TextAlign.start,
-            // ),
-           
-            // ClipRRect(
-            //   child: BackdropFilter(
-            //     filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-            //     child: Container(
-            //       color: Colors.grey.withOpacity(0.1),
-            //       width: MediaQuery.of(context).size.width,
-            //       height: 10.0,
-            //     ),
-            //   ),
-            // ),
             loading
                 ? const Center(
                   child: CircularProgressIndicator(),
@@ -171,58 +161,59 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(height: 5.0,),
                    Stack(
               children: [
-                // Container(
-                //   width: 70,
-                //   height: 70,
-                //   decoration: const BoxDecoration(
-                //       shape: BoxShape.circle,
-                //       gradient: LinearGradient(colors: [
-                //         Color(0xff744ff9),
-                //         Color(0xff8369de),
-                //         Color(0xff8da0cb)
-                //       ])),
-                // ),
-                // ClipRRect(
-                //   child: BackdropFilter(
-                //     filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-                //     child: Container(
-                //       width: 500,
-                //       height: 200,
-                //       decoration: BoxDecoration(
-                //         color: Colors.grey.withOpacity(0.1),
-                //       )
-                //     ),
-                //   ),
-                // ),
+
+                     Builder(
+                  builder: (BuildContext context) {
+                    return Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: ClipRRect(
+                            child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.09,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.transparent),
+                                ))));
+                  },
+                ),
+
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom: 30,
+                  bottom: 0,
                   child: ClipRRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                      child: Container(
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0),color: Colors.transparent,),
-                        // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: SearchBar(
-                          controller: searchBarTextController,
-                          elevation: const MaterialStatePropertyAll(0),
-                          textStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white)),
-                          backgroundColor: MaterialStatePropertyAll(Colors.transparent.withOpacity(0.1)),
-                          onChanged: (value) => searchResult(value),
-                          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0)),),
-                          hintText: 'Search Apps',
-                          padding: const MaterialStatePropertyAll(EdgeInsets.all(10.0)),
-                          side: MaterialStatePropertyAll(BorderSide(color: Colors.grey.shade500, width: 2.0)),
-                          hintStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white, fontSize: 18.0)),
-                          leading: const Icon(Icons.search, color: Colors.white70,),
-                          trailing: [GestureDetector(onTap: () => setState(() {
-                            searchList = sortedApps;
-                            searchBarTextController.clear();
-                          }), child: searchBarTextController.text.isNotEmpty ? const Icon(Icons.cancel, color: Colors.white70,) : Container())],
-                        ),
-                      ),
+                    child: Builder(
+                      builder: (context) {
+                        return BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: Container(
+                            padding: const EdgeInsets.only(bottom: 30),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0),color: Colors.transparent,),
+                            // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            child: SearchBar(
+                              controller: searchBarTextController,
+                              elevation: const MaterialStatePropertyAll(0),
+                              textStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white)),
+                              backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
+                              onChanged: (value) => searchResult(value),
+                              shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0)),),
+                              hintText: 'Search Apps',
+                              padding: const MaterialStatePropertyAll(EdgeInsets.all(10.0)),
+                              side: MaterialStatePropertyAll(BorderSide(color: Colors.grey.shade500, width: 2.0)),
+                              hintStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.white, fontSize: 18.0)),
+                              leading: const Icon(Icons.search, color: Colors.white70,),
+                              trailing: [GestureDetector(onTap: () => setState(() {
+                                searchList = sortedApps;
+                                searchBarTextController.clear();
+                              }), child: searchBarTextController.text.isNotEmpty ? const Icon(Icons.cancel, color: Colors.white70,) : Container()),PopupMenuExample(context1: context, onTap: changeBackground,)],
+                            ),
+                          ),
+                        );
+                      }
                     ),
                   ),
                 ),
@@ -235,3 +226,68 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+class PopupMenuExample extends StatefulWidget {
+  final BuildContext context1;
+  final void Function()? onTap;
+  const PopupMenuExample({super.key, required this.context1, this.onTap});
+
+  @override
+  State<PopupMenuExample> createState() => _PopupMenuExampleState();
+}
+
+  enum Menu { preview, share, getLink, remove, download }
+class _PopupMenuExampleState extends State<PopupMenuExample> {
+
+  @override
+  Widget build(BuildContext context1) {
+    return  
+                PopupMenuButton<Menu>(
+                  color: Colors.white,
+                  // popUpAnimationStyle: _animationStyle,
+                             
+                  icon: const Icon(Icons.more_vert, color: Colors.white,),
+                  onSelected: (Menu item) {},
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+                    PopupMenuItem<Menu>(
+                      value: Menu.preview,
+                      child: ListTile(
+                        onTap: () => widget.onTap!(),
+                        leading: const Icon(Icons.wallpaper),
+                        title: const Text('Wallpaper Mode'),
+                      ),
+                    ),
+                    const PopupMenuItem<Menu>(
+                      value: Menu.share,
+                      child: ListTile(
+                        leading: Icon(Icons.share_outlined),
+                        title: Text('Share'),
+                      ),
+                    ),
+                    const PopupMenuItem<Menu>(
+                      value: Menu.getLink,
+                      child: ListTile(
+                        leading: Icon(Icons.link_outlined),
+                        title: Text('Get link'),
+                      ),
+                    ),
+                    const PopupMenuDivider(),
+                    const PopupMenuItem<Menu>(
+                      value: Menu.remove,
+                      child: ListTile(
+                        leading: Icon(Icons.delete_outline),
+                        title: Text('Remove'),
+                      ),
+                    ),
+                    const PopupMenuItem<Menu>(
+                      value: Menu.download,
+                      child: ListTile(
+                        leading: Icon(Icons.download_outlined),
+                        title: Text('Download'),
+                      ),
+                    ),
+                  ],
+                );   
+  }
+}
+
